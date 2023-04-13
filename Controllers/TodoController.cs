@@ -45,5 +45,34 @@ namespace backend.Controllers
 
             return CreatedAtAction("GetById", new {id = todo.TodoId}, todo);
         }
+
+        // Update a todo
+        [HttpPost("Update")]
+        public async Task<IActionResult> Update(int id, Todo todo){
+            if(id != todo.TodoId){
+                return BadRequest();
+            }
+
+            _context.Entry(todo).State = EntityState.Modified;
+
+            try{
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException){
+                if(!TodoExist(id)){
+                    return NotFound();
+                }
+                else{
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // Exist todo
+        private bool TodoExist(int id){
+            return _context.Todos.Any(e => e.TodoId == id);
+        }
     }
 }
