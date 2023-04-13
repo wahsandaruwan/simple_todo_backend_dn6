@@ -70,6 +70,23 @@ namespace backend.Controllers
             return NoContent();
         }
 
+        // Delete a todo
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var todo = await _context.Todos.FindAsync(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            _context.Todos.Remove(todo);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
         // Exist todo
         private bool TodoExist(int id){
             return _context.Todos.Any(e => e.TodoId == id);
