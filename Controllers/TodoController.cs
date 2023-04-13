@@ -25,5 +25,25 @@ namespace backend.Controllers
         public async Task<ActionResult<IEnumerable<Todo>>> GetAll(){
             return await _context.Todos.ToListAsync();
         }
+
+        // Get one by id
+        [HttpGet("GetById")]
+        public async Task<ActionResult<Todo>> GetById(int id){
+            var todo = await _context.Todos.FindAsync(id);
+            if(todo == null){
+                return NotFound();
+            }
+
+            return todo;
+        }
+
+        // Create a todo
+        [HttpPost("Create")]
+        public async Task<ActionResult<Todo>> Create(Todo todo){
+            _context.Todos.Add(todo);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetById", new {id = todo.TodoId}, todo);
+        }
     }
 }
