@@ -1,9 +1,7 @@
 // Global directives
 global using backend.Models;
 global using Microsoft.EntityFrameworkCore;
-
-// Other directives
-using backend.Database;
+global using backend.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 

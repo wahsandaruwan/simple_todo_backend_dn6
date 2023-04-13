@@ -10,9 +10,20 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class TodoController : ControllerBase
     {
-        [HttpGet("GetTodo")]
-        public string GetTodo(){
-            return "Hello World";
+        // -----Db context instance-----
+        private readonly ApiDbContext _context;
+
+        // -----Constructor-----
+        public TodoController(ApiDbContext context){
+            _context = context;
+        }
+
+        // -----All API endpoints-----
+
+        // Get all todos
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<IEnumerable<Todo>>> GetAll(){
+            return await _context.Todos.ToListAsync();
         }
     }
 }
