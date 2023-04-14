@@ -25,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// For CORS
 app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
