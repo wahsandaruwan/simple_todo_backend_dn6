@@ -86,7 +86,7 @@ namespace backend.Controllers
             return NoContent();
         }
 
-
+        // -----All utilities-----
         // Exist todo
         private bool TodoExist(int id){
             return _context.Todos.Any(e => e.TodoId == id);
