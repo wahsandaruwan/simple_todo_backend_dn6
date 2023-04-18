@@ -21,12 +21,14 @@ namespace backend.Controllers
         // -----All API endpoints-----
 
         // Get all todos
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<Todo>>> GetAll(){
             return await _context.Todos.ToListAsync();
         }
 
         // Get one by id
+        [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<Todo>> GetById(int id){
             var todo = await _context.Todos.FindAsync(id);
@@ -38,6 +40,7 @@ namespace backend.Controllers
         }
 
         // Create a todo
+        [Authorize]
         [HttpPost("Create")]
         public async Task<ActionResult<Todo>> Create(Todo todo){
             _context.Todos.Add(todo);
@@ -47,6 +50,7 @@ namespace backend.Controllers
         }
 
         // Update a todo
+        [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> Update(int id, Todo todo){
             if(id != todo.TodoId){
@@ -71,6 +75,7 @@ namespace backend.Controllers
         }
 
         // Delete a todo
+        [Authorize]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
