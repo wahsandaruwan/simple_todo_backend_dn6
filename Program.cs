@@ -1,4 +1,5 @@
 // Global directives
+global using Microsoft.AspNetCore.Mvc;
 global using backend.Models;
 global using Microsoft.EntityFrameworkCore;
 global using backend.Database;
