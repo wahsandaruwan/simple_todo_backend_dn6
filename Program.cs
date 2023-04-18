@@ -3,11 +3,11 @@ global using Microsoft.AspNetCore.Mvc;
 global using backend.Models;
 global using Microsoft.EntityFrameworkCore;
 global using backend.Database;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
 
 // Local directives
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
