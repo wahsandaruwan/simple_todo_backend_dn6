@@ -21,9 +21,9 @@ namespace backend.Controllers
 
         // -----All utilities-----
         // Authenticate user
-        private User AuthenticateUser(User user){
+        private static User AuthenticateUser(User user){
             User? _user = null;
-            if(user.UserName == "admin"){
+            if(user.UserName == "admin" && user.Password == "12345"){
                 _user = new User {UserName = "Kamal Silva"};
             }
             return _user;
@@ -39,6 +39,22 @@ namespace backend.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"], null, expires: DateTime.Now.AddMinutes(1), signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        // -----All API endpoints-----
+
+        // Login
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public IActionResult Login(User user){
+            IActionResult response = Unauthorized();
+            var _user = AuthenticateUser(user);
+            if(_user != null){
+                var token = GenerateToken(_user);
+                response = Ok(new { token });
+            }
+
+            return response;
         }
     }
 }
