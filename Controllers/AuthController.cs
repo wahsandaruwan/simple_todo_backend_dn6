@@ -17,5 +17,15 @@ namespace backend.Controllers
         public AuthController(IConfiguration config){
             _config = config;
         }
+
+        // -----All utilities-----
+        // Authenticate user
+        private User AuthenticateUser(User user){
+            User? _user = null;
+            if(user.UserName == "admin"){
+                _user = new User {UserName = "Kamal Silva"};
+            }
+            return _user;
+        }
     }
 }
